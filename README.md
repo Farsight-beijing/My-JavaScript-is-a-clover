@@ -1,2 +1,2 @@
 # My-JavaScript-is-a-clover
-sssss
+变量预解释
