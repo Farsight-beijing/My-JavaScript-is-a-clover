@@ -82,12 +82,12 @@
                 activeDate.setDate(date+1);//让日期对象往后走一天；然后再下一次循环的时候，赋值给oLi.innerHTML
             }
         }
-        function offset(ele){
+        function offset(ele){//计算任意DOM元素距离文档的左或上的绝对偏移
             var l=ele.offsetLeft;
             var t=ele.offsetTop;
             var p=ele.offsetParent;
             while(p){
-                if(window.navigator.userAgent.indexOf("MISE 8")>-1){
+                if(window.navigator.userAgent.indexOf("MISE 8")>-1){//判断IE8的方法
                     l+= p.offsetLeft;
                     t+= p.offsetTop;
                 }else{
