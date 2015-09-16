@@ -98,6 +98,8 @@ getComputerStyle第二种写法
             return {left:l,top:t}
         }
 
+
+
 -固定宽度出现滚动条；
 
 >         #div1{

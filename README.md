@@ -45,8 +45,12 @@ JavaScript中我们学的所有的知识点其实都是基于浏览器内置类�
     + 创建对象
     + 继承
     + 使用面向对象的思想扩展数组类
-
 1. [JSON数据高20](#test)
+    + 模块化开发
+    + 模块化开发
+1. [兼容性处理、错误处理与调试高17章](#test)
+    + 模块化开发
+    + 模块化开发
 
 
 # 2、DOM #
@@ -143,9 +147,7 @@ BOM主要是学window对象；window包括以下
 1. [客户端检测高9章](#test)
     + 模块化开发
     + 模块化开发
-1. [错误处理与调试高17章](#test)
-    + 模块化开发
-    + 模块化开发
+
 1. [HTTP](#test)
     + WEB客户端和服务器
     + HTTP事务
@@ -183,3 +185,7 @@ BOM主要是学window对象；window包括以下
     + 部署
 
 **[↑ 返回目录](#table-of-content)**
+
+如果把JavaScript看成三叶草的话，那么jQuery就是三叶草的第四片叶子
+
+jQuery is fourth leaves of JavaScript
