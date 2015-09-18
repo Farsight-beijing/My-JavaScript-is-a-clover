@@ -155,6 +155,32 @@ Tool.prototype = {//方法是定义在Tool的prototype上的；
         }
         curEle.innerHTML = str;
     },
+    text:function (ele,str){//处理innerText和textContent的兼容性；传一个参数是获取；2个参数是设置；
+        if(ele&&ele.nodeType&&ele.nodeType==1){
+            if(str===undefined){//如果str没有传，那么方法是获取元素的文本内容；
+                if(typeof ele.textContent=='string')
+                    return ele.textContent;
+                else
+                    return ele.innerText;
+
+            }else{//如果传了，就是添加文本内容
+                if(str===null){
+                    alert('text方法参数错误,str为null！');
+                    return ;
+                }else if(typeof str=='string'){
+                    if(typeof ele.textContent=='string') {
+                        ele.textContent += str;
+                    }else{
+                        ele.innerText+=str;
+                    }
+                }else{
+                    alert('text方法的参数错误！')
+                }
+            }
+        }else{
+            alert('text方法的ele参数错误！')
+        }
+    },
 
     /***下面是设置CSS***/
     setCss: function (curEle,attr,value) {//设置CSS属性值和获取CSS；如果三个参数就是设置，2个参数就是获取；att是attribute的缩写；

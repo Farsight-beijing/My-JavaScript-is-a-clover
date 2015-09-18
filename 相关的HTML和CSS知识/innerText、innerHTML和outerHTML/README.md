@@ -44,6 +44,7 @@ innerHTML
 就像名字的含义一样，textContent返回元素及其后代的文本内容,
 而innerHTML则返回HTML,如果仅仅需要文本就不应该使用innerHTML,textContent不只是更有效率，而且可以避免XSS(Cross-site scripting)攻击。
 
+> 
 >  
 > 	function text(ele,str){//处理innerText和textContent的兼容性；
 > 	if(ele&&ele.nodeType&&ele.nodeType==1){

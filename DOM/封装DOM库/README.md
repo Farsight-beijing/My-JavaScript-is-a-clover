@@ -106,6 +106,7 @@ tool.js 使用的是构造函数模式开发的类库，使用的时候需要创
 - insertAfter：在指定目标元素oldEle后面插入新元素newEle；如果没有传指定元素，则直接添加在后面；这个方法好像没啥实际意义；可以通过insertBefore变相实现；
 - prependChild ：把一个元素节点添加为parentEle的第一个子节点；
 - innerHTML ：获取元素的innerHTML；
+- text ：获取和设置innerHTML；
 
 - **下面是设置CSS**
 - setCss ：设置CSS属性值和获取CSS；如果三个参数就是设置，2个参数就是获取；
