@@ -204,3 +204,12 @@
         return false;//通过返回false，这个函数实际上就充当了整个文档中的try-catch语句，可以捕获所有无代码处理的运行时错误；这个事件处理程序，是报告浏览器报告错误的最后一道防线；理想情况下，只要可能就不应该使用它，只要能够适当地使用try-catch语句，就不会有错误交给浏览器，也就不会触发error事件；
 
 图像也支持error事件；只要图像src特性中的URL不能返回可以被识别的图像格式，就会触发error事件；此时的error事件遵循DOM格式；会返回一个以图片为目标的evern对象；下面是一个例子；
+>     var image=new Image();
+    EventUtil.addHandler(image,"load",function(event){
+        alert("图片下载")
+    });
+    EventUtil.addHandler(image,"error",function(event){
+        alert("图片没有下载")
+    });
+    image.src="smilex.gif";//指定不存在的文件；
+    //加载图片失败的时候，会显示一个警告框；需要注意的是，发生error事件时，图像下载过程已结束；
