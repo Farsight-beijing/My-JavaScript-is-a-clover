@@ -31,7 +31,7 @@ innerHTML是IE提出来的，浏览器都是支持的，除了火狐外；innerH
 innerText和textContent的主要区别如下:
 
 
-- textContent可以获取所有元素的内容；包括<script>和<style>，但innerText不能获取这两个标签的内容。
+- textContent可以获取所有元素的内容；包括script和style，但innerText不能获取这两个标签的内容。
 - innertText可以感知样式，不会返回隐藏元素的文本内容，但是textContent可以返回；
 - 因为innerText感知样式，因此会触发重排(reflow),而textContent不会；
 
@@ -41,31 +41,33 @@ innerText和textContent的主要区别如下:
 innerHTML
 
 
-就像名字的含义一样，textContent返回元素及其后代的文本内容,而innerHTML则返回HTML,如果仅仅需要文本就不应该使用innerHTML,textContent不只是更有效率，而且可以避免XSS(Cross-site scripting)攻击。
+就像名字的含义一样，textContent返回元素及其后代的文本内容,
+而innerHTML则返回HTML,如果仅仅需要文本就不应该使用innerHTML,textContent不只是更有效率，而且可以避免XSS(Cross-site scripting)攻击。
 
-> function text(ele,str){//处理innerText和textContent的兼容性；
-	if(ele&&ele.nodeType&&ele.nodeType==1){
-		if(str===undefined){//如果str没有传，那么方法是获取元素的文本内容；
-			if(typeof ele.textContent=='string')
-				return ele.textContent;
-			else
-				return ele.innerText;
-
-		}else{//如果传了，就是添加文本内容
-			if(str===null){
-				alert('text方法参数错误,str为null！');
-				return ;
-			}else if(typeof str=='string'){
-				if(typeof ele.textContent=='string') {
-					ele.textContent += str;
-				}else{
-					ele.innerText+=str;
-				}
-			}else{
-				alert('text方法的参数错误！')
-			}
-		}
-	}else{
-		alert('text方法的ele参数错误！')
-	}
-}
+>  
+> 	function text(ele,str){//处理innerText和textContent的兼容性；
+> 	if(ele&&ele.nodeType&&ele.nodeType==1){
+> 		if(str===undefined){//如果str没有传，那么方法是获取元素的文本内容；
+> 			if(typeof ele.textContent=='string')
+> 				return ele.textContent;
+> 			else
+> 				return ele.innerText;
+> 
+> 		}else{//如果传了，就是添加文本内容
+> 			if(str===null){
+> 				alert('text方法参数错误,str为null！');
+> 				return ;
+> 			}else if(typeof str=='string'){
+> 				if(typeof ele.textContent=='string') {
+> 					ele.textContent += str;
+> 				}else{
+> 					ele.innerText+=str;
+> 				}
+> 			}else{
+> 				alert('text方法的参数错误！')
+> 			}
+> 		}
+> 	}else{
+> 		alert('text方法的ele参数错误！')
+> 	}
+> 	}
