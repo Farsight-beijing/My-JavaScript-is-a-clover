@@ -1,4 +1,4 @@
-#我把JavaScript理解成一朵三叶草
+#我的JavaScript是一朵三叶草
 ----
 JavaScript由ECMAScript、DOM（Document Object Model）、BOM（Browser Object Model）三部分组成；其中ECMAScript定义了JS的书写规范和语法；BOM可以操作与浏览器的交互；DOM可以让我们操作网页的内容；根据宿主（浏览器）的不同，具体的表现形式也不尽相同，ie和其他的浏览器风格不同。
 
