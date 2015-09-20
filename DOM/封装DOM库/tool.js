@@ -183,8 +183,12 @@ Tool.prototype = {//方法是定义在Tool的prototype上的；
     },
 
     /***下面是设置CSS***/
-    setCss: function (curEle,attr,value) {//设置CSS属性值和获取CSS；如果三个参数就是设置，2个参数就是获取；att是attribute的缩写；
-        if( typeof value =="String"){//如果有第三个参数，就是设置Css；如果没有就是获取Css；
+    setCss:function (curEle,attr,value) {//设置CSS属性值和获取CSS；如果三个参数就是设置，2个参数就是获取；att是attribute的缩写；
+        if(typeof value==="undefined"){//如果有第三个参数，就是设置Css；如果没有就是获取Css；
+            var reg = /^(?:margin|padding|border|float|position|display|background|backgroundColor)$/;
+            var value = this.flag ? window.getComputedStyle(curEle, null)[attr] : curEle.currentStyle[attr];
+            return !reg.test(attr) ? parseFloat(value) : value;
+        } else{
             switch (attr) {
                 case "opacity":
                     curEle["style"][attr] = value;
@@ -197,9 +201,6 @@ Tool.prototype = {//方法是定义在Tool的prototype上的；
                     curEle["style"][attr] = !isNaN(value) ? value += "px" : value;
             }
         }
-        var reg = /^(?:margin|padding|border|float|position|display|background|backgroundColor)$/;
-        var value = this.flag ? window.getComputedStyle(curEle, null)[attr] : curEle.currentStyle[attr];
-        return !reg.test(attr) ? parseFloat(value) : value;//如果是width之类数值；就转成数字返回；如果是background类型的直接返回value；
     },
     setGroupCss: function (curEle,cssObj) {//给元素设置一组属性；cssObj是一个对象类型；
         for (var key in cssObj) {
