@@ -2,8 +2,9 @@
 <html>
 <head lang="en">
     <meta charset="UTF-8">
-    <title>轮播图</title>
+    <title>优化后的无缝轮播图</title>
     <style>
+        body{-webkit-user-select: none; }
         ul,li{
             list-style: none;
         }
@@ -13,6 +14,7 @@
             position: relative;
             margin: 50px auto;
             overflow: hidden;
+            cursor: pointer;
         }
         #inner{
             width: 2000px;
@@ -35,11 +37,11 @@
             width: 20px;
             height: 20px;
             line-height: 20px;
+            border-radius: 50%;
             text-align: center;
-            background: orange;
-            border: 1px solid darkgreen;
+            background: #CCC;
+            border: 1px solid orange;
             margin-right: 10px;
-            cursor: pointer;
         }
     </style>
 </head>
@@ -63,13 +65,28 @@
 </body>
 </html>
 <script>
-    var innerDiv=document.getElementById("inner");
+    var innerDiv=document.getElementById("inner"),
+            innerDivChild=innerDiv.getElementsByTagName("div");
     var ulHeadLi=document.getElementById("ulHead").getElementsByTagName("li");
+
     for(var i= 0,len=ulHeadLi.length;i<len;i++){
         ulHeadLi[i].index=i;
+        var curNumber=null;
+        /*鼠标点击的时候发生的；*/
         ulHeadLi[i].onclick=function(){
-            startMove(innerDiv,{"left":-this.index*400})
+            startMove(innerDiv,{"left":-this.index*400});//开始运动
+            autoMove.index=this.index;/*鼠标点击的时候，改变autoMove的索引值,这样定时器再次运动的时候，就会以当前的索引往下一个跳转了*/
             clearInterval(timer);
+            timer=setInterval(autoMove,2000);
+            /*下面是鼠标点击后的颜色设置*/
+            liBackground();
+        };
+        /*鼠标放在图片上，离开图片的效果*/
+        innerDivChild[i].onmouseover=function(){
+            clearInterval(timer);
+        };
+        innerDivChild[i].onmouseout=function(){
+            timer=setInterval(autoMove,2000);
         }
     }
 
@@ -79,17 +96,35 @@
     innerDiv.appendChild(oCopy);
     innerDiv.style.width=innerDiv.offsetWidth+oFirstDiv.offsetWidth+"px";
 
+
+    /*下面是自动运动的*/
     autoMove.index=0;
     function autoMove(){
         autoMove.index++;
         if(autoMove.index==6){//如果索引值是6，则马上图片换成第一张图片；
             innerDiv.style.left=0;
             autoMove.index=1;//从第一张，往第二张走；
-        }
+        };
+        liBackground();
         startMove(innerDiv,{"left":autoMove.index*-400});
     }
     var timer=window.setInterval(autoMove,2000);
 
+    /*下面是设置LI的背景颜色*///引用了autoMove上的index属性；
+    ulHeadLi[autoMove.index].style.background="orange";/*给第一个li默认的颜色*/
+    function liBackground(){
+        /*设置li的颜色*/
+        for(var i= 0,len=ulHeadLi.length;i<len;i++){
+            ulHeadLi[i].style.background=""/*清空li的属性；*/
+        }
+        if(autoMove.index==5){/*第六章图片的时候，让第一个li选择*/
+            ulHeadLi[0].style.background="orange";
+        }else{
+            ulHeadLi[autoMove.index].style.background="orange";
+        }
+    }
+
+    /*运动的框架*/
     function startMove(ele, json, fnEnd) {//json是一个包含样式的JSON格式字符串；
 //        var MAX=58;//如果是匀速运动，可以通过这个数控制匀速；
         clearInterval(ele.timer);
