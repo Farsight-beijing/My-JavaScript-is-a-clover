@@ -194,6 +194,13 @@ Tool.prototype = {//方法是定义在Tool的prototype上的；
                     curEle["style"][attr] = value;
                     curEle["style"]["filter"] = "alpha(opacity=" + (value * 100) + ")";
                     break;
+                case "float":
+                    curEle["style"].cssFloat = value;
+                    curEle["style"].styleFloat = value;
+                    break;
+                case "backgroundColor":
+                    curEle["style"][attr] = value;
+                    break;
                 case "zIndex":
                     curEle["style"][attr] = value;
                     break;

@@ -12,13 +12,13 @@
             font-weight: bold;
             background: orange;
             position: absolute;
-            top: 200px;
-            left: 100px;
+            top: 0px;
+            left: 0px;
             box-shadow: 5px 5px 10px blue;
             border-radius: 10px;
             border: 2px solid #ff0000;
-            opacity: 0.5;
-            filter:alpha(opacity=50);
+            opacity: 0.9;
+            filter:alpha(opacity=90);
         }
     </style>
 </head>
@@ -29,39 +29,32 @@
 <script>
     var oDiv=document.getElementById("div1");
     oDiv.onclick = function(){
-        animate(this,"opacity",0.2,1000);
+        animate(this,"left",500,1000,fnRight);
     };
-    function animate(ele,attr,target,duration){
+
+    function animate(ele,attr,target,duration,fnCallback){
         var times=0;
         var begin=setCss(ele,attr);//起点
         var change=target-begin;//总的移动距离=目的地-其实的位置;
         var nInterval=13;//一步走多少；步长；
-        console.log("开始："+begin);
-        console.log("重点："+target);
-        var timer=window.setInterval(move,nInterval);
+
+        clearInterval(ele.timer);
+        ele.timer=window.setInterval(move,nInterval);
         function move(){
             times+=nInterval;
             if(times>=duration){
-                if(attr==="opacity"){/*如果是opacity，需要用到小数*/
-                    ele.style[attr]=target;
-                    ele.style["filter"] = "alpha(opacity=" + target*100 + ")";
-                    clearInterval(timer);
-                }else{
-                    ele.style[attr]=target+"px";
-                    clearInterval(timer);
+                setCss(ele,attr,target);
+                clearInterval(ele.timer);
+                /*动画行为结束*/
+                if(typeof fnCallback=="function"){
+                    fnCallback.call(ele);
                 }
-
             }else{
-                if(attr==="opacity"){
-                    ele.style[attr]=begin+change*(times/duration);
-                    ele.style["filter"] = "alpha(opacity=" + (begin+change*(times/duration))*100 + ")";
-                }else{
-                    ele.style[attr]=begin+change*(times/duration)+"px";
-                }
+                var targetNumber=begin+change*(times/duration);
+                setCss(ele,attr,targetNumber);
             }
         }
     };
-
     function setCss(curEle,attr,value) {//设置CSS属性值和获取CSS；如果三个参数就是设置，2个参数就是获取；att是attribute的缩写；
         if(typeof value==="undefined"){//如果有第三个参数，就是设置Css；如果没有就是获取Css；
             var reg = /^(?:margin|padding|border|float|position|display|background|backgroundColor)$/;
@@ -82,6 +75,23 @@
             }
         }
     };
+
+    //回调方法；
+    function toGreen(){
+        this.style.backgroundColor="green"
+    };
+    function fnRight(){
+        animate(this,"left",600,1000,fnDown);
+    }
+    function fnDown(){
+        animate(this,"top",600,1000,fnLeft);
+    }
+    function fnLeft(){
+        animate(this,"left",0,1000,fnUp);
+    }
+    function fnUp(){
+        animate(this,"top",0,1000,fnRight);
+    }
 </script>
 
 
