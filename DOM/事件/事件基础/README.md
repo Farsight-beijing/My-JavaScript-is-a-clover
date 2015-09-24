@@ -1,0 +1,32 @@
+#事件基础
+
+**事件是什么**：就是一件事，包括硬件的一些行为；
+ 
+- click
+- mouseover
+- mouseout
+- keydown
+- keyup
+
+**什么是绑定**：事件监听；
+
+**具体某一个事件和事件整体的区别**：一件事，和一套事件系统
+
+**什么是事件对象**：实现事件系统，事件的机制，浏览器自己有一套机制；类似人的神经系统，这个内置第机制就是事件对象；
+
+
+事件演示：
+>     var oDiv=document.getElementById("div1");
+    oDiv.onmousemove=function(event){
+        //直接把一个方法赋值给一个事件属性.这个方法运行的时候，浏览器会自动的给这个方法传一个对象；这个对象就是事件对象；
+        event=event||window.event;//IE下的事件对象，是一个全局的event；这种的是兼容写法；
+        event.clientX;//鼠标的X轴坐标；
+        event.clientY;//鼠标的Y轴坐标；
+        //时间有即时行；
+        event.type;//事件类型；只和当时发生的类型有关；只能同时处理一个事件；
+        this.innerHTML="X:"+event.clientX+" Y："+event.clientY;
+    };
+    document.documentElement.onkeydown= function (event) {
+        event=event||window.event;
+        oDiv.innerHTML=event.keyCode;
+    }
