@@ -30,3 +30,9 @@
         event=event||window.event;
         oDiv.innerHTML=event.keyCode;
     }
+
+
+    //pageX;pageY;鼠标距离文档(当前页面的)最上角的距离；不支持IE678;
+    //clientX;clientY;指的是浏览器；
+    //onmouseover和onmouseenter区别；over会传播，enter是不传播的；
+    //onmouseout和onmouselive区别；
