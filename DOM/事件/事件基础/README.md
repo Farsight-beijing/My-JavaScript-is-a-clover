@@ -36,3 +36,23 @@
     //clientX;clientY;指的是浏览器；
     //onmouseover和onmouseenter区别；over会传播，enter是不传播的；
     //onmouseout和onmouselive区别；
+
+取消冒泡的方法；
+
+>          //阻止事件传播/冒泡的方法；
+    this.appendChild(ele);
+    ele.onmouseover=function(event){
+        event=event||window.event;
+        if(event.stopPropagation){
+            event.stopPropagation();//标准留言器中禁止冒泡；
+            // preventDefault中文意思是阻止默认行为；
+        }else{
+            e.cancelBubble=true;//IE浏览器禁止冒泡；IE678
+        }
+    }
+
+
+onmouseenter的优势；
+>     // onmouseover和onmouseenter很像，但是可以避免；onmouseover的一些问题；
+    // 如果是从父元素到子元素，不会触发onmouseover;
+    // 如果是从子元素到父元素，也不会触发onmouseover；
