@@ -56,3 +56,19 @@ onmouseenter的优势；
 >     // onmouseover和onmouseenter很像，但是可以避免；onmouseover的一些问题；
     // 如果是从父元素到子元素，不会触发onmouseover;
     // 如果是从子元素到父元素，也不会触发onmouseover；
+
+事件的冒泡和捕获
+
+>      function fn(){
+        console.log(this.nodeName)
+    }
+    eles=document.documentElement.getElementsByTagName("*");
+    for(var i=0;i<eles.length;i++){
+        //eles[i].addEventListener("click",fn,false);//SPAN、LI、UL、DIV、BODY
+        eles[i].addEventListener("click",fn,true);//BODY、DIV、UL、LI、SPAN
+    }
+
+
+冒泡和捕获是事件的两个阶段，我们可以在不同阶段来绑定(监听)处理方法；
+如果用false是冒泡，如果是true是捕获；
+一般都是用false来处理的
