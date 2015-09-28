@@ -72,3 +72,25 @@ onmouseenter的优势；
 冒泡和捕获是事件的两个阶段，我们可以在不同阶段来绑定(监听)处理方法；
 如果用false是冒泡，如果是true是捕获；
 一般都是用false来处理的
+
+事件委托：
+>     document.documentElement.onclick=function(event){
+        event=event||window.event;
+        //事件源委托给documentElement
+        target=event.target||event.srcElement;//事件源
+        console.log(target.nodeName)
+    }
+下面是具体应用
+
+>     document.documentElement.onclick=function(event){
+        event=event||window.event;
+        //事件源委托给documentElement
+        target=event.target||event.srcElement;//事件源
+        console.log(target.nodeName)
+    };
+    //下面是动态创建的
+    var p=document.createElement("p");
+    document.body.appendChild(p);
+    p.innerHTML="222312312312";
+    /*事件委托也可以实现动态绑定*/
+    /*所有的事件，都可以用事件委托来实现；时间委托是一个高级技巧*/
