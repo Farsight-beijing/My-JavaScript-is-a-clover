@@ -68,6 +68,28 @@ IE兼容性问题：
 
 低版本的IE事件，如果超过9个就会混乱了；9个内是倒序的；
 
-解决IE事件执行顺序混乱的方法;
-
-1、
+**事件的兼容问题都在run里解决好；**以后直接传个e即可；使用也都用标准浏览器的语法；
+>     /*事件兼容性问题，都在run上解决好*/
+    function run(e){
+        e=e||window.event;
+        if(!e.target){
+            e.target= e.srcElement;
+            e.pageX=(document.documentElement.scrollLeft||document.body.scrollLeft)+ e.clientX;
+            e.pageY=(document.documentElement.scrollTop||document.body.scrollTop)+ e.clientY;
+            e.stopPropagation=function(){e.cancelBubble=true;}//阻止事件传播;
+            e.preventDefault=function(){e.returnValue=false;}//阻止事件默认行为;
+        }
+        /*上面是IE不支持的*/
+        var a=this["aEvent"+e.type];
+        for(var i=0;i< a.length;){
+            /*下面是防止数组塌陷的*/
+            if(typeof a[i]=="function"){
+                //a[i].call(this);//this指向当前被绑定元素；
+                a[i].call(this,e);//this后面加e；就解决了e的兼容性问题；因为想this主体传了e；具体的函数就不需要再解决e的兼容了；
+                i++;
+            }else{
+                /*如果是空的，删掉；不删也是可以的*/
+                a.splice(i,1);
+            }
+        }
+    }
