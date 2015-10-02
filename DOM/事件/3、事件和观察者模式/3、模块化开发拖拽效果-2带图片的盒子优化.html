@@ -2,45 +2,52 @@
 <html>
 <head lang="en">
     <meta charset="UTF-8">
-    <title>Duang！拖拽加效果,再加自由落体</title>
+    <title>拖拽的图片</title>
     <style>
-        body{-webkit-user-select: none;-moz-user-select: none;}
-        #div1{width: 100px;height: 100px;background: orange;position: absolute;top: 0;left: 0;cursor: move;}
+        div{width: 100px;height: 100px;position: absolute;background: orange;top:0;left: 0;cursor: move;}
+        #div2{  top:100px;left: 160px;background: blueviolet;}
+        #div3{  top:30px;left: 360px;background: chocolate;}
     </style>
 </head>
 <body>
-<div id="div1">拖拽效果</div>
+<div id="div1"><img src="logo.jpg" alt="logo"/></div>
+<div id="div2"></div>
+<div id="div3"></div>
 </body>
 </html>
+<script src="event3.js"></script>
 <script>
-    var oDiv=document.getElementById("div1");
-    oDiv.onmousedown=down;
+    var eles=document.getElementsByTagName("div");
+    for(var i=0;i<eles.length;i++){
+        on(eles[i],"mousedown",down)
+    }
 
-    /*第一步*/
+
+    var zIndex=1;
     function down(e){
-        e=e||window.event;
-        this.x=this.offsetLeft;
-        this.y=this.offsetTop;
-        this.mouseX=e.clientX;
-        this.mouseY=e.clientY;
-        if(this.setCapture){
-            //捕捉鼠标焦点的；IE的解决方法；
-            this.setCapture();
-            this.onmousemove=move;
-            this.onmouseup=up;
-        }else{
-            var _move=bindThis(this,move);
-            var _up=bindThis(this,up);
-            document.onmousemove=_move;
-            document.onmouseup=_up;
-        }
         clearTimeout(this.flytimer);
         clearTimeout(this.droptimer);
-    };
-    /*第二步*/
+        this.x=this.offsetLeft;
+        this.y=this.offsetTop;
+        this.mouseX= e.pageX;
+        this.mouseY= e.pageY;
+        if(this.setCapture){
+            this.setCapture();
+            on(this,"mousemove",move);
+            on(this,"mouseup",up);
+        }else{
+            this._move=bindThis(this,move);
+            this._up=bindThis(this,up);
+            on(document,"mousemove",this._move);
+            on(document,"mouseup",this._up);
+        }
+        this.style.zIndex=++zIndex;//解决图片覆盖的；
+        e.preventDefault();//阻止默认行为，解决盒子因为加了图片，站住鼠标的BUG；
+    }
+
     function move(e){
-        this.style.top=this.y+(e.clientY-this.mouseY)+"px";
-        this.style.left=this.x+(e.clientX-this.mouseX)+"px";
+        this.style.left=this.x+ (e.pageX-this.mouseX)+"px";
+        this.style.top=this.y+ (e.pageY-this.mouseY)+"px";
         /*加动画效果的代码*/
         if(!this.prevX){
             //记录第一次/上一次move事件触发的时候鼠标X轴位置;
@@ -52,22 +59,21 @@
             // 速度=单位时间的距离;
         }
         /*动画代码结束*/
-    };
-    /*第三步*/
+    }
+
     function up(e){
-        /*IE解决鼠标丢失焦点*/
         if(this.releaseCapture){
             this.releaseCapture();
-            this.onmousemove=null;
-            this.onmouseup=null;
+            off(this,"mousemove",move);
+            off(this,"mouseup",up);
         }else{
-            document.onmousemove=null;
-            document.onmouseup=null;
+            off(document,"mousemove",this._move);
+            off(document,"mouseup",this._up);
         }
-//        fly.call(this);
-//        drop.call(this);
+        fly.call(this);
+        drop.call(this);
+    }
 
-    };
 
     /*左右反弹*/
     function fly(){
@@ -115,7 +121,6 @@
         }
     }
 
-    function bindThis(obj,fn){
-        return function(e){fn.call(obj,e)}
-    }
+
+
 </script>
