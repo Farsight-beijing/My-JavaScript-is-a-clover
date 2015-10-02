@@ -2,7 +2,7 @@
 <html>
 <head lang="en">
     <meta charset="UTF-8">
-    <title>Duang！拖拽加效果</title>
+    <title>Duang！拖拽加效果,再加自由落体</title>
     <style>
         body{-webkit-user-select: none;-moz-user-select: none;}
         #div1{width: 100px;height: 100px;background: orange;position: absolute;top: 0;left: 0;cursor: move;}
@@ -36,6 +36,8 @@
             document.onmousemove=_move;
             document.onmouseup=_up;
         }
+        clearTimeout(this.flytimer);
+        clearTimeout(this.droptimer);
     };
     /*第二步*/
     function move(e){
@@ -48,7 +50,6 @@
         }else{
             this.speed= e.clientX-this.prevX;//速度=这次位置-上次位置；
             this.prevX= e.clientX;//改变this.prevX；记录本次的位置
-            console.log(this.speed);
             //两次move事件之间的事件间大体是一样的；
             // 速度=单位时间的距离;
         }
@@ -66,11 +67,14 @@
             document.onmouseup=null;
         }
         fly.call(this);
+        drop.call(this);
 
     };
+
+    /*左右反弹*/
     function fly(){
+        clearTimeout(this.flytimer);
         var maxRight=(document.documentElement.clientWidth||document.body.clientWidth)-this.offsetWidth;
-        console.log("最大的右侧是"+maxRight);
         this.speed*=0.93;
         if(this.offsetLeft+this.speed>=maxRight){
             this.style.left=maxRight+"px";
@@ -81,12 +85,39 @@
         }else{
             this.style.left=this.offsetLeft+this.speed+"px";
         }
+        if(Math.abs(this.speed)>=0.5){/*定时器停止的条件*/
+            this.flytimer=window.setTimeout(bindThis(this,arguments.callee),30);
+        }
+    }
 
-        window.setTimeout(bindThis(this,arguments.callee),30);
+    /*自由落体*/
+    var g=9.8;
+    var flag=0;
+    function drop(){
+        clearTimeout(this.droptimer);
+        var maxBottom=(document.documentElement.clientHeight||document.body.clientHeight)-this.offsetHeight;
+        if(!this.dropSpeed){
+            this.dropSpeed=g;
+        }else{
+            this.dropSpeed+=g;
+        }
+        /*下面是摩擦系数*/
+        this.dropSpeed*=0.93;
+        /*下面是边界判断*/
+        if(this.offsetTop+this.dropSpeed>=maxBottom){
+            this.style.top=maxBottom+"px";
+            this.dropSpeed*=-1;
+            flag++;
+        }else{
+            this.style.top=this.offsetTop+this.dropSpeed+"px";
+            flag=0;
+        }
+        if(flag<2){
+            this.droptimer=window.setTimeout(bindThis(this,arguments.callee),30);
+        }
     }
 
     function bindThis(obj,fn){
-        //绑定this关键字
         return function(e){fn.call(obj,e)}
     }
 </script>
