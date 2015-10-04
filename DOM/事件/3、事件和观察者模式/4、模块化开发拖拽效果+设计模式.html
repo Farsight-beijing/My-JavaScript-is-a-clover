@@ -26,7 +26,24 @@
         selfOn(eles[i],"selfDragEnd",fly);
         selfOn(eles[i],"selfDragEnd",drop);
     }
-
+    function selfOn(ele,type,fn){//绑定自定义事件；
+        if(!ele[type]){
+            ele[type]=[];
+        }
+        var ary=ele[type];
+        for(var i=0;i< ary.length;i++){
+            if(ary[i]==fn)return;
+        }
+        ary.push(fn);
+    }
+    function fire(type,e){//做接口，桥梁的作用；
+        var ary=this[type];
+        if(ary){
+            for(i=0,len=ary.length;i<len;i++){
+                ary[i].call(this,e);
+            }
+        }
+    }
 
     function down(e){//把down发布为一个事件；让别人能够约定的标识符；
         //识别符："selfDragStart" ;
@@ -64,24 +81,7 @@
         fire.call(this,"selfDragEnd",e);//这个是接口；
     }
 
-    function selfOn(ele,type,fn){//绑定自定义事件；
-        if(!ele[type]){
-            ele[type]=[];
-        }
-        var ary=ele[type];
-        for(var i=0;i< ary.length;i++){
-            if(ary[i]==fn)return;
-        }
-        ary.push(fn);
-    }
-    function fire(type,e){//做接口，桥梁的作用；
-        var ary=this[type];
-        if(ary){
-            for(i=0,len=ary.length;i<len;i++){
-                ary[i].call(this,e);
-            }
-        }
-    }
+
 
 
 
