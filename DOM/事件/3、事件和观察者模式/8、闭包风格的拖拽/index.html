@@ -20,6 +20,7 @@
     var oDivs=document.getElementsByTagName("div");
     for(var i= 0,len=oDivs.length;i<len;i++){
         (function(ele) {
+            on(ele,"mousedown",down)
             var x=null,y=null,mx=null,my=null;
             function down(e){
                 x=this.offsetLeft;
@@ -50,7 +51,6 @@
                     off(document,"mouseup",up)
                 }
             }
-            on(ele,"mousedown",down)
         })(oDivs.item(i));
     }
 
