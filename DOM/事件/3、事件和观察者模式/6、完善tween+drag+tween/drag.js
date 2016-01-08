@@ -4,6 +4,7 @@ function down(e){//把down发布为一个事件；让别人能够约定的标识
     this.y=this.offsetTop;
     this.mouseX= e.pageX;
     this.mouseY= e.pageY;
+    console.log("offsetLeft;offsetTop+e.pageX+e.pageY"+this.x+"==>"+this.y+"==>"+this.mouseX+"==>"+this.mouseY);
     if(this.setCapture){
         this.setCapture();
         on(this,"mousemove",move);

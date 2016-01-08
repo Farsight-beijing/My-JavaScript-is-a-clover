@@ -34,7 +34,7 @@
 <script src="drag.js"></script>
 <script src="tween.js"></script>
 <script>
-    var t=new Tool();
+    var dom=new Tool();
     var oLis=document.getElementsByTagName("li");
     for(var i=oLis.length-1;i>=0;i--){
         var oLi=oLis[i];
@@ -44,6 +44,8 @@
         oLi.style.top=oLi.t+"px";
         oLi.style.position="absolute";
         oLi.style.margin=0;
+        console.log("第"+i+"元素的：left，top值是："+oLi.style.left+""+oLi.style.top+oLi.style.position)
+
 
         on(oLi,"mousedown",down);
         on(oLi,"selfDragStart",zIndexNum);
@@ -78,7 +80,7 @@
     //*获取相交最近的li*//
     function getHitedEle(){
         this["aHitedEle"]=[];
-        var subs= t.getSiblings(this);
+        var subs= dom.getSiblings(this);
         for(var i=0;i<subs.length;i++){
             var oLi=subs[i];
             oLi.style.border="";
