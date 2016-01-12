@@ -104,3 +104,28 @@
 - .queue() 显示或操作匹配元素所执行函数的队列。
 - .dequeue()从队列最前端移除一个队列函数，并执行它。
 - .clearQueue()从队列中删除所有未运行的项目。
+
+#jQuery 核心
+- jQuery() 方法接受一个字符串，其中包含了用于匹配元素集合的 CSS 选择器。
+	- jQuery(selector, [context])接受一个字符串，其中包含了用于匹配元素集合的 CSS 选择器：
+	- jQuery(html,[ownerDocument])使用原始 HTML 的字符串来创建 DOM 元素：
+	- jQuery( callback )绑定一个在 DOM 文档载入完成后执行的函数：
+
+
+
+#JQuery 事件
+JQuery hover(over,out) 
+
+#jquery用法；
+$.extend继承父类;并且自己有的东西，可以覆盖父类的；
+
+	(function($) {
+	    $.extend({
+	        zhuanbang: function(con){
+	            //主体函数
+	        }
+	    });
+	    $.zhuanbang({
+	        direction: "left"
+	    })
+	}(jQuery));
