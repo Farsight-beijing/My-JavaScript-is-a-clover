@@ -114,7 +114,12 @@
 
 
 #JQuery 事件
-JQuery hover(over,out) 
+- JQuery hover(over,out) 
+- focus()当元素获得焦点时，发生 focus 事件。
+- blur()当元素失去焦点时发生 blur 事件。
+- which() 属性指示按了哪个键或按钮。
+- keyup() 当按钮被松开时，发生 keyup 事件
+- keydown
 
 #jquery用法；
 $.extend继承父类;并且自己有的东西，可以覆盖父类的；
