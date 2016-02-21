@@ -5,6 +5,20 @@
     <title></title>
 </head>
 <body>
-;;;ppppp
+<div id="div1"></div>
 </body>
 </html>
+<script>
+    var a=0;
+    function fn(){
+       var a=1;
+       function fm(){
+           console.log(a);
+       }
+       return fm;
+    }
+    var hanshu=fn();//hanshu这个变量就相当于fm函数；
+    hanshu();//相当于fm函数运行；此时输出的是1；而不是0；虽然是在window中运行的；但是在fn中定义的；所以a找到的是fm上一级作用域fm的a；而不是window中的a；
+
+
+</script>
