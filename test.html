@@ -3,22 +3,30 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title></title>
+    <style>
+        p{
+            width: 100px;
+            background: red;
+            position: relative;
+        }
+    </style>
 </head>
 <body>
-<div id="div1"></div>
+<div id="div1">
+    <p>0000</p>
+    <p>1111</p>
+    <p>2222</p>
+    <p>3333</p>
+    <p>4444</p>
+</div>
 </body>
 </html>
 <script>
-    var a=0;
-    function fn(){
-       var a=1;
-       function fm(){
-           console.log(a);
-       }
-       return fm;
+    var oDiv = document.getElementById("div1");
+    var oPs = oDiv.getElementsByTagName("p");
+    for (i = 0; i < oPs.length; i++) {
+        setTimeout((function(i){
+                    return function(){oPs[i].style.left=100*i+"px";}
+                })(i),i*1000);
     }
-    var hanshu=fn();//hanshu这个变量就相当于fm函数；
-    hanshu();//相当于fm函数运行；此时输出的是1；而不是0；虽然是在window中运行的；但是在fn中定义的；所以a找到的是fm上一级作用域fm的a；而不是window中的a；
-
-
 </script>
